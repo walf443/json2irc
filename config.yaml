@@ -1,0 +1,4 @@
+host: irc.freenode.org
+nick: walf443bot
+channels:
+  - '#classx'

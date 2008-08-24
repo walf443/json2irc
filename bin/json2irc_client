@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'uri'
+require 'open-uri'
+
+channel = ARGV.shift
+msg = ARGV.shift
+
+json = {
+  "message" => msg,
+  "channel" => channel,
+  "method" => "notice",
+}
+
+uri = URI('http://localhost:9292/')
+uri.query = URI.encode("json=#{json.to_json}")
+puts uri.to_s
+
+uri.open
