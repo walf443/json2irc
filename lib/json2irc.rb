@@ -72,6 +72,10 @@ class JSON2IRC
     channel = json['channel'] or
       raise Forbidden
 
+    unless self.config.channels.include?("##{channel}")
+      raise Forbidden
+    end
+
     unless @irc.queue.nil?
       @irc.queue = []
       @irc.queue.extend(MonitorMixin)
