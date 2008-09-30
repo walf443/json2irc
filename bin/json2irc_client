@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
 require 'json'
 require 'uri'
 require 'open-uri'
@@ -13,7 +14,7 @@ json = {
   "method" => "notice",
 }
 
-uri = URI('http://localhost:9292/')
+uri = URI('http://127.0.0.1:9292/')
 uri.query = URI.encode("json=#{json.to_json}")
 puts uri.to_s
 

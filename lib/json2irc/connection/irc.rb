@@ -26,24 +26,22 @@ module JSON2IRC::Connection
         @queue = []
         @queue.extend(MonitorMixin)
       elsif @queue.size > 0
-        while ( @queue.size > 0 )
-          @queue.synchronize do
-            msg = @queue.pop
-            method = nil
-            if msg[:method]
-              method = 
-                case msg[:method] 
-                when "privmsg"
-                  PRIVMSG
-                when "notice"
-                  NOTICE
-                end
-            else
-              raise MethodNotAllowed
-            end
-
-            post(method, msg[:channel], msg[:message])
+        @queue.synchronize do
+          msg = @queue.pop
+          method = nil
+          if msg[:method]
+            method =
+              case msg[:method]
+              when "privmsg"
+                PRIVMSG
+              when "notice"
+                NOTICE
+              end
+          else
+            raise MethodNotAllowed
           end
+
+          post(method, msg[:channel], msg[:message])
         end
       end
 
